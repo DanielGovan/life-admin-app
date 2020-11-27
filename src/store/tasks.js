@@ -15,7 +15,7 @@ const slice = createSlice({
       tasks.loading = true;
     },
     taskDeleted: (tasks, action) => {
-      console.log("delete attempt:", action.payload);
+      //   console.log("delete attempt:", action.payload);
       tasks.list = tasks.list.filter((task) => task.id !== action.payload);
     },
     taskUpdated: (tasks, action) => {
@@ -41,7 +41,6 @@ const { taskAdded, taskUpdated, taskDeleted, taskBuried } = slice.actions;
 // TODO Can/should these be simplified?
 export const addTask = (task) => async (dispatch) => {
   try {
-    // const res = await api.post('/api/auth/login/', { username, password })
     dispatch(taskAdded(task));
   } catch (e) {
     return console.error(e.message);
@@ -50,53 +49,11 @@ export const addTask = (task) => async (dispatch) => {
 
 export const removeTask = (id) => async (dispatch) => {
   try {
-    // const res = await api.post('/api/auth/login/', { username, password })
     dispatch(taskDeleted(id));
   } catch (e) {
     return console.error(e.message);
   }
 };
-
-// export const addTask = (task) =>
-//   apiCallBegan({
-//     url,
-//     method: "post",
-//     data: bug,
-//     onSuccess: bugAdded.type,
-//   });
-
-// export const resolveBug = (id) =>
-//   apiCallBegan({
-//     // /bugs
-//     // PATCH /bugs/1
-//     url: url + "/" + id,
-//     method: "patch",
-//     data: { resolved: true },
-//     onSuccess: bugResolved.type,
-//   });
-
-// export const assignBug = (bugId, userId) =>
-//   apiCallBegan({
-//     url: url + "/" + bugId,
-//     method: "patch",
-//     data: { userId },
-//     onSuccess: bugAssignedToUser.type,
-//   });
-
-// export const loadBugs = () => (dispatch, getstate) => {
-//     const { lastFetch } = getstate().entities.bugs;
-//     const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
-//     // console.log(lastFetch, diffInMinutes);
-//     if (diffInMinutes < 10) return;
-//     return dispatch(
-//       apiCallBegan({
-//         url,
-//         onStart: bugsRequested.type,
-//         onSuccess: bugsReceived.type,
-//         onError: bugsRequestFailed.type,
-//       })
-//     );
-//   };
 
 // task states
 // name: "",

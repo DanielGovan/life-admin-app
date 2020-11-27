@@ -1,7 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
-export const TaskItem = (props) => {
-  const todo = useSelector((state) => state.todos[props.id]);
-  return <div>{todo.text}</div>;
+export const TaskItem = ({ name, id, deleteHandler }) => {
+  return (
+    <div>
+      {name}{" "}
+      <a href="#" onClick={() => deleteHandler(id)}>
+        X
+      </a>
+    </div>
+  );
 };

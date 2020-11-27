@@ -44,17 +44,14 @@ const TodoList = () => {
         <input className="btn btn-primary btn-block" type="submit" />
       </form>
       <br /> <h4>List of tasks</h4>
-      {tasks.list.length === 0
-        ? ""
-        : tasks.list.map((task) => (
-            <p key={task.id}>
-              {task.taskName}{" "}
-              <a href="#" onClick={() => deleteHandler(task.id)}>
-                X
-              </a>
-            </p>
-          ))}
-      {/* <TaskItem id="0" /> */}
+      {tasks.list &&
+        tasks.list.map((task) => (
+          <TaskItem
+            name={task.taskName}
+            id={task.id}
+            deleteHandler={deleteHandler}
+          />
+        ))}
     </div>
   );
 };
