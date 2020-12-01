@@ -1,12 +1,13 @@
+import { Button } from "@material-ui/core";
 import React from "react";
 
 export const TaskItem = ({ name, id, deleteHandler }) => {
   return (
     <div>
       {name}{" "}
-      <a href="#" onClick={() => deleteHandler(id)}>
+      <Button href="#" onClick={() => deleteHandler(id)}>
         X
-      </a>
+      </Button>
     </div>
   );
 };

@@ -5,8 +5,16 @@ import { useForm } from "react-hook-form";
 import { addTask, removeTask } from "../store/tasks";
 import Header from "../components/Header";
 import { TaskItem } from "../components/TaskItem";
+import { styled } from "@material-ui/core/styles";
+import { Button, Card, FormHelperText, TextField } from "@material-ui/core";
 
 // In this container, handle all the functions and the state management, so all nested components are dumb, working instead with actions & selectors
+
+const StyledCard = styled(Card)({
+  padding: "30px",
+  margin: "20px auto",
+  maxWidth: "400px",
+});
 
 let taskId = 0;
 const TodoList = () => {
@@ -18,7 +26,7 @@ const TodoList = () => {
     // Sets an ID (needs a better way)
     data.id = taskId;
     taskId++;
-    console.log("Task added: ", data.taskName);
+    console.log("Task added: ", data);
     // Calls the addTask action
     dispatch(addTask(data));
     // Clear the input field
@@ -30,29 +38,38 @@ const TodoList = () => {
   };
 
   return (
-    <div>
+    <>
       <Header />
-      Add new task
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          name="taskName"
-          placeholder="Enter a new task"
-          className={`form-control ${errors.taskName ? "is-invalid" : ""}`}
-          ref={register({ required: true })}
-        />
-        {errors.taskName && <p>This field is required</p>}
-        <input className="btn btn-primary btn-block" type="submit" />
-      </form>
-      <br /> <h4>List of tasks</h4>
-      {tasks.list &&
-        tasks.list.map((task) => (
-          <TaskItem
-            name={task.taskName}
-            id={task.id}
-            deleteHandler={deleteHandler}
+      <StyledCard>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            name="taskName"
+            placeholder="Enter a new task"
+            className={`form-control ${errors.taskName ? "is-invalid" : ""}`}
+            inputRef={register({ required: true })}
           />
-        ))}
-    </div>
+          <Button className="btn btn-primary btn-block" type="submit">
+            Add Task
+          </Button>
+          {errors.taskName && (
+            <FormHelperText>This field is required</FormHelperText>
+          )}
+        </form>
+      </StyledCard>
+
+      <StyledCard>
+        <h4>List of tasks</h4>
+        {tasks.list &&
+          tasks.list.map((task) => (
+            <TaskItem
+              name={task.taskName}
+              key={task.id}
+              id={task.id}
+              deleteHandler={deleteHandler}
+            />
+          ))}
+      </StyledCard>
+    </>
   );
 };
 
